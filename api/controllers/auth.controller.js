@@ -1,18 +1,19 @@
 import User from '../models/user.model.js';
-import bcryptjs from 'bcryptjs';
-// import { errorHandler } from '../utils/error.js';
+// import bcryptjs from 'bcryptjs';
+//  import { errorHandler } from '../utils/error.js';
 // import jwt from 'jsonwebtoken';
 
-export const signup = async (req, res) => {
+export const signup =  (req, res, next) => {
   // console.log(req.body);
   const { username, email, password } = req.body;
-  const hashedPassword = bcryptjs.hashSync(password, 10);
-  const newUser = new User({ username, email, password: hashedPassword });
+  // const hashedPassword = bcryptjs.hashSync(password, 10);
+  const newUser = new User({ username, email, password });
   try {
-    await newUser.save();
+     newUser.save();
     res.status(201).json('User created successfully!');
   } catch (error) {
-    res.status(500).json(error.message);
+    // next(errorHandler(550, 'error from the function'));
+    // res.status(500).json(error.message);
     // next(error);
   }
 };
