@@ -8,10 +8,10 @@ export default function Header() {
 
   return (
     <header className='bg-white shadow-md'>
-      <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
+      <div className='flex justify-between items-center max-w-7xl mx-auto p-3'>
       <Link to='/'>
           <h1 className='font-bold text-sm sm:text-xl flex flex-wrap'>
-            <span style={{ color: `var(--dark-color)` }}>PreLoved</span>
+            <span style={{ color: `var(--dark-color)` }}>Re-Loved</span>
           </h1>
           </Link>
         <form
@@ -24,7 +24,7 @@ export default function Header() {
           />
             <FaSearch className='text-slate-600' />
         </form>
-        <ul className='flex gap-4'>
+        <ul className='flex gap-10'>
           <Link to='/'>
             <li className='hidden sm:inline text-slate-700 hover:underline'>
               Home
