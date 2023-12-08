@@ -36,6 +36,10 @@ app.listen(8080, () => {
     console.log('Server is running on port 8080!');
   });
 
+  app.get("/", (req, res) => {
+    res.json("hi");
+  });
+
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/listing', listingRouter);
