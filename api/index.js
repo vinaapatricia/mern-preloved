@@ -20,6 +20,14 @@ mongoose
 
 const app = express();
 
+app.use(cors(
+  {
+    origin: ["https://mern-preloved-vinaapatricia.vercel.app/"],
+    methods: ["POST","GET"],
+    credentials: true
+  }
+));
+
 app.use(express.json());
 
 app.use(cookieParser());
