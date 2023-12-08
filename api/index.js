@@ -24,7 +24,7 @@ const app = express();
 
 app.use(cors(
   {
-    origin: ["https://mern-preloved-vinaapatricia.vercel.app/"],
+    origin: ["https://mern-preloved-api.vercel.app"],
     methods: ["POST","GET"],
     credentials: true
   }
