@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import GoogleAuth from '../components/GoogleAuth';
+import OAuth from '../components/GoogleAuth';
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
@@ -40,46 +40,49 @@ export default function SignUp() {
     }
   };
   return (
-    <div className='p-3 max-w-lg mx-auto'>
-      <h1 className='text-3xl text-center font-semibold my-7'>Sign Up</h1>
-      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+    <div className='container pb-8 sm:pb-0'>
+       <p className='grid grid-cols-1 sm:grid-cols-2'></p>
+      <h1 className={'text-4xl text-center font-bold font-poppins mt-40 mb-10'}>Sign Up</h1>
+      <form onSubmit={handleSubmit} className='flex flex-col md:flex-row items-center md:items-start gap-8'>
+      <img src="./images/register.svg" alt="" className='w-full md:w-1/2 max-w-full mx-auto' />
+      <div className="w-full md:w-1/2 mt-20">
         <input
           type='text'
           placeholder='username'
-          className='border p-3 rounded-lg'
+          className='border font-poppins p-4 w-full rounded-lg mt-6'
           id='username'
           onChange={handleChange}
         />
         <input
           type='email'
           placeholder='email'
-          className='border p-3 rounded-lg'
+          className='border font-poppins p-4 w-full rounded-lg mt-6'
           id='email'
           onChange={handleChange}
         />
         <input
           type='password'
           placeholder='password'
-          className='border p-3 rounded-lg'
+          className='border font-poppins p-4 w-full rounded-lg mt-6'
           id='password'
           onChange={handleChange}
         />
-
         <button
           disabled={loading}
-          className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
+          className='bg-black text-white p-4 rounded-lg uppercase hover:opacity-50 disabled:opacity-80 mt-6 my-4 w-full'
         >
           {loading ? 'Loading...' : 'Sign Up'}
         </button>
-        <GoogleAuth/>
-      </form>
-      <div className='flex gap-2 mt-5'>
+        <OAuth/>
+        <div className='flex gap-4 mt-8 justify-center'>
         <p>Have an account?</p>
         <Link to={'/sign-in'}>
-          <span className='text-blue-700'>Sign in</span>
+          <span className='text-yellow-700 underline'>Sign in</span>
         </Link>
       </div>
-      {error && <p className='text-red-500 mt-5'>{error}</p>}
+      {error && <p className='text-red-500 mt-8'>{error}</p>}
+        </div>
+      </form>
     </div>
   );
 }

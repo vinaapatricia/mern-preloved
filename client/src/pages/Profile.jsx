@@ -136,7 +136,6 @@ export default function Profile() {
         setShowListingsError(true);
         return;
       }
-
       setUserListings(data);
     } catch (error) {
       setShowListingsError(true);
@@ -162,8 +161,8 @@ export default function Profile() {
     }
   };
   return (
-    <div className='p-3 max-w-lg mx-auto'>
-      <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
+    <div className=' gap-10 p-20 px-3 max-w-lg mx-auto'>
+      <h1 className='text-3xl px-30 font-semibold text-center my-7'>Profile</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
         <input
           onChange={(e) => setFile(e.target.files[0])}
@@ -186,7 +185,7 @@ export default function Profile() {
           ) : filePerc > 0 && filePerc < 100 ? (
             <span className='text-slate-700'>{`Uploading ${filePerc}%`}</span>
           ) : filePerc === 100 ? (
-            <span className='text-green-700'>Image successfully uploaded!</span>
+            <span className='text-black'>Image successfully uploaded!</span>
           ) : (
             ''
           )}
@@ -226,13 +225,16 @@ export default function Profile() {
         >
           Add a Product
         </Link>
-        <button
+
+      </form>
+      <div className='flex flex-col gap-4 my-4' >
+      <button
             onClick={handleShowListings}
             className={`bg-transparent text-black p-3 rounded-lg uppercase text-center border border-black hover:opacity-50`}
           >
             Show My Product
           </button>
-      </form>
+      </div>
       <div className='flex justify-between mt-5'>
         <span
           onClick={handleDeleteUser}
@@ -246,12 +248,12 @@ export default function Profile() {
       </div>
 
       <p className='text-red-700 mt-5'>{error ? error : ''}</p>
-      <p className='text-green-700 mt-5'>
+      <p className='text-black mt-5 font-extrabold text-center'>
         {updateSuccess ? 'User is updated successfully!' : ''}
       </p>
       
-      <p className='text-red-700 mt-5'>
-        {showListingsError ? 'Error showing listings' : ''}
+      <p className='text-red-700 mt-5 text-center font-bold'>
+        {showListingsError ? 'Error Show Your Product' : ''}
       </p>
 
       {userListings && userListings.length > 0 && (
@@ -286,7 +288,7 @@ export default function Profile() {
                   Delete
                 </button>
                 <Link to={`/update-listing/${listing._id}`}>
-                  <button className='text-green-700 uppercase'>Edit</button>
+                  <button className='text-black uppercase'>Edit</button>
                 </Link>
               </div>
             </div>

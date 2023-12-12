@@ -1,4 +1,5 @@
-import { useState } from 'react';
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from 'react';
 import {
   getDownloadURL,
   getStorage,
@@ -7,18 +8,19 @@ import {
 } from 'firebase/storage';
 import { app } from '../firebase';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function CreateListing() {
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const params = useParams();
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     imageUrls: [],
     name: '',
     description: '',
-    address: '',
     type: 'rent',
+
     regularPrice: 50,
     discountPrice: 0,
     offer: false,
@@ -27,7 +29,22 @@ export default function CreateListing() {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  console.log(formData);
+
+  useEffect(() => {
+    const fetchListing = async () => {
+      const listingId = params.listingId;
+      const res = await fetch(`/api/listing/get/${listingId}`);
+      const data = await res.json();
+      if (data.success === false) {
+        console.log(data.message);
+        return;
+      }
+      setFormData(data);
+    };
+
+    fetchListing();
+  }, [params.listingId]);
+
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
@@ -126,7 +143,7 @@ export default function CreateListing() {
         return setError('Discount price must be lower than regular price');
       setLoading(true);
       setError(false);
-      const res = await fetch('/api/listing/create', {
+      const res = await fetch(`/api/listing/update/${params.listingId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -148,9 +165,9 @@ export default function CreateListing() {
     }
   };
   return (
-    <main className='py-20 max-w-4xl mx-auto'>
+    <main className='gap-10 p-20 px-3 max-w-4xl mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>
-        Add some stuff
+        Update a Listing
       </h1>
       <form onSubmit={handleSubmit} className='flex flex-col sm:flex-row gap-4'>
         <div className='flex flex-col gap-4 flex-1'>
@@ -174,7 +191,6 @@ export default function CreateListing() {
             onChange={handleChange}
             value={formData.description}
           />
-         
           <div className='flex gap-6 flex-wrap'>
             <div className='flex gap-2'>
               <input
@@ -196,7 +212,6 @@ export default function CreateListing() {
               />
               <span>Good</span>
             </div>
-          
             <div className='flex gap-2'>
               <input
                 type='checkbox'
@@ -209,7 +224,7 @@ export default function CreateListing() {
             </div>
           </div>
           <div className='flex flex-wrap gap-6'>
-            
+          
             <div className='flex items-center gap-2'>
               <input
                 type='number'
@@ -223,7 +238,7 @@ export default function CreateListing() {
               />
               <div className='flex flex-col items-center'>
                 <p>Regular price</p>
-               
+                
               </div>
             </div>
             {formData.offer && (
@@ -240,14 +255,13 @@ export default function CreateListing() {
                 />
                 <div className='flex flex-col items-center'>
                   <p>Discounted price</p>
-
                  
                 </div>
               </div>
             )}
           </div>
         </div>
-        <div className='flex flex-col gap-4 flex-1'>
+        <div className='flex flex-col flex-1 gap-4'>
           <p className='font-semibold'>
             Images:
             <span className='font-normal text-gray-600 ml-2'>
@@ -267,7 +281,7 @@ export default function CreateListing() {
               type='button'
               disabled={uploading}
               onClick={handleImageSubmit}
-              className='p-3 text-black border border-black rounded uppercase hover:shadow-lg disabled:opacity-50'
+              className='p-3 text-black border border-black rounded uppercase hover:shadow-lg disabled:opacity-80'
             >
               {uploading ? 'Uploading...' : 'Upload'}
             </button>
@@ -297,9 +311,9 @@ export default function CreateListing() {
             ))}
           <button
             disabled={loading || uploading}
-            className='p-3 bg-yellow-300 hover:opacity-50 hover:text-black text-white rounded-lg uppercase disabled:opacity-80'
+            className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
           >
-            {loading ? 'Creating...' : 'add'}
+            {loading ? 'Updating...' : 'Update listing'}
           </button>
           {error && <p className='text-red-700 text-sm'>{error}</p>}
         </div>

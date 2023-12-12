@@ -6,7 +6,7 @@ import {
   signInSuccess,
   signInFailure,
 } from '../redux/user/userSlice';
-import GoogleAuth from '../components/GoogleAuth';
+import OAuth from '../components/GoogleAuth';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
@@ -43,39 +43,44 @@ export default function SignIn() {
     }
   };
   return (
-    <div className='p-3 max-w-lg mx-auto'>
-      <h1 className='text-3xl text-center font-semibold my-7'>Sign In</h1>
-      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-        <input
-          type='email'
-          placeholder='email'
-          className='border p-3 rounded-lg'
-          id='email'
-          onChange={handleChange}
-        />
-        <input
-          type='password'
-          placeholder='password'
-          className='border p-3 rounded-lg'
-          id='password'
-          onChange={handleChange}
-        />
+    <div className='container pb-8 sm:pb-0'> 
+    <p className='grid grid-cols-1 sm:grid-cols-2'></p>
+    <h1 className={'text-4xl text-center font-bold font-poppins mt-40 mb-10'}>Sign In</h1>
+    <form onSubmit={handleSubmit} className='flex flex-col md:flex-row items-center md:items-start gap-8'>
+        <img src="./images/login.svg" alt="" className='w-full md:w-1/2  mx-auto' /> {/* Increase max-width */}
+        <div className="w-full md:w-1/2 mt-20">
+            <input
+                type='email'
+                placeholder='email'
+                className='border font-poppins p-4 w-full rounded-lg mt-6' 
+                id='email'
+                onChange={handleChange}
+            />
+            <input
+                type='password'
+                placeholder='password'
+                className='border font-poppins p-4 w-full rounded-lg mt-6' 
+                id='password'
+                onChange={handleChange}
+            />
 
-        <button
-          disabled={loading}
-          className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
-        >
-          {loading ? 'Loading...' : 'Sign In'}
-        </button>
-        <GoogleAuth/>
-      </form>
-      <div className='flex gap-2 mt-5'>
+            <button
+                disabled={loading}
+                className='bg-black text-white p-4 font-poppins rounded-lg uppercase hover:opacity-50 disabled:opacity-80 mt-6 my-4 w-full'
+            >
+                {loading ? 'Loading...' : 'Sign In'}
+            </button>
+            <OAuth  />
+            <div className='flex gap-4 font-poppins mt-8 mx-24  justify-center'> 
         <p>Dont have an account?</p>
         <Link to={'/sign-up'}>
-          <span className='text-blue-700 hover:underline'>Sign Up</span>
+            <span className='text-yellow-700 font-poppins underline'>Sign up</span>
         </Link>
+        {error && <p className='text-red-500 mt-8'>{error}</p>} 
       </div>
-      {error && <p className='text-red-500 mt-5'>{error}</p>}
-    </div>
+        </div>
+    </form>
+</div>
+
   );
 }
