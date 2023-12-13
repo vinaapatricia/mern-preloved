@@ -6,6 +6,7 @@ import authRouter from './routes/auth.route.js';
 import listingRouter from './routes/listing.route.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import cors from "cors";
 dotenv.config();
 
 mongoose
@@ -17,20 +18,19 @@ mongoose
     console.log(err);
   });
 
-const cors = require("cors");
+
 
 const __dirname = path.resolve();
   
 const app = express();
 
-const corsOptions =
+app.use(cors(
   {
     origin: ["https://mern-preloved-vinaapatricia.vercel.app/"],
     methods: ["POST","GET","DELETE"],
-    credentials: true,
-  };
-
-  app.use(cors());
+    credentials: true
+  }
+));
 
 app.use(express.json());
 
