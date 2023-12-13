@@ -17,17 +17,20 @@ mongoose
     console.log(err);
   });
 
+const cors = require("cors");
+
 const __dirname = path.resolve();
   
 const app = express();
 
-app.use(cors(
+const corsOptions =
   {
     origin: ["https://mern-preloved-vinaapatricia.vercel.app/"],
-    methods: ["POST","GET"],
-    credentials: true
-  }
-));
+    methods: ["POST","GET","DELETE"],
+    credentials: true,
+  };
+
+  app.use(cors());
 
 app.use(express.json());
 
