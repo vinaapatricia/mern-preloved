@@ -21,12 +21,11 @@ mongoose
 
 
 const __dirname = path.resolve();
-  
 const app = express();
 
 app.use(cors(
   {
-    origin: ["https://mern-preloved-vinaapatricia.vercel.app/"],
+    origin: ["https://mern-preloved.vercel.app/"],
     methods: ["POST","GET","DELETE"],
     credentials: true
   }

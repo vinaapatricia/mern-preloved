@@ -34,11 +34,6 @@ export default function Header() {
                 Home
               </li>
             </Link>
-            <Link to='/about'>
-              <li className='hidden sm:inline  hover:scale-105 duration-200 hover:opacity-40 text-black py-1 px-4'>
-                About
-              </li>
-            </Link>
           </ul>
           <div>
               <Link to='/profile'>
