@@ -11,6 +11,7 @@ import { FaShoppingCart, FaLocationArrow,FaMobileAlt, FaInstagram, FaDiscord, Fa
 import { FaShoppingBag } from "react-icons/fa";
 import { FaHeart  } from "react-icons/fa";
 import AboutImg from "../../images/shop.svg";
+import SecondhandImg from "../../images/Secondhand-2.png";
 
 export default function Home() {
   const [offerListings, setOfferListings] = useState([]);
@@ -55,11 +56,11 @@ export default function Home() {
     <div>
       {/* top */}
       <div className='flex flex-col gap-10 p-40 px-3 max-w-6xl mx-auto place-items-center'>
-              <img
-            className="rounded-lg mb-6"
-            src="../images/Secondhand-2.png"
-            alt="Image description"
-          />
+      <img
+          src={SecondhandImg}
+          alt="secondhand img"
+          className="max-w-[430px] w-full mx-auto drop-shadow-[-10px_10px_12px_rgba(0,0,0,1)]"
+                />
         <div className='text-gray-400 text-md md:text-md place-items-center text-center'>Immerse yourself in the narratives woven into each second-hand gem, adding character and history to your finds. At our unique collection, we invite you to rediscover quality, uniqueness, and the joy of sustainable living. Recharge your connection with meaningful possessions as you indulge in the distinctive stories behind every preloved item, turning each acquisition into a special chapter of your own narrative. "Step into a world where ordinary becomes extraordinary – a realm of timeless charm and sustainable living. Our carefully curated collection of preloved treasures invites you to immerse yourself in the narratives of second-hand splendor. Each item tells a unique story, adding character and history to your discoveries. Recharge your senses as you explore the distinctive tales behind every preloved gem. Join us on this journey of rediscovery, where the ordinary transforms into the extraordinary, and every acquisition becomes a cherished chapter in your personal narrative. Embrace the joy of mindful living and surround yourself with the beauty of thoughtfully chosen, preloved possessions."
     </div>
     <Link
