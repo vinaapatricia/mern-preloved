@@ -1,0 +1,83 @@
+<section class="fixed top-0 w-full bg-white shadow-md opacity-90">
+  <!-- Navbar -->
+  <div class="mx-5 md:mx-[10rem] px-4 py-4 flex items-center justify-between">
+    <a href="/" class="text-2xl md:text-4xl font-bold">Re-Loved</a>
+    <div class="flex items-center space-x-4 md:space-x-12">
+      <img src="/images/light-mode-button.png" alt="" class="h-7 object-contain" id="lightModeButton" onclick="toggleMode()" />
+      <img src="/images/dark-mode-button.png" alt="" class="h-7 object-contain hidden" id="darkModeButton" onclick="toggleMode()" />
+      <a href="/" class="hidden md:block border-b-2 text-lg border-transparent hover:border-yellow-500">Home</a>
+      <a href="/login" class="border-b-2 border-transparent inline-block">
+        <button class="rounded px-2 py-2 rounded-full text-xl border bg-yellow-400 font-bold text-white bg-yellow-400 hover:bg-black text-white font-bold py-2 px-4 rounded-full hover:scale-105 duration-200 hover:opacity-40">Sign In</button>
+      </a>
+    </div>
+  </div>
+  <!-- End Navbar -->
+</section>
+<section>
+  <div class="flex flex-col md:flex-row gap-10 mx-4 py-20">
+    <div class="p-7 border-b-2 md:border-r-2 md:min-h-screen">
+      <form class="flex flex-col gap-8">
+        <div class="flex items-center gap-2"><label class="whitespace-nowrap font-semibold">Search Term:</label><input type="text" id="searchTerm" placeholder="Search..." class="border rounded-lg p-3 w-full" value="" /></div>
+        <div class="flex gap-2 flex-wrap items-center">
+          <label class="font-semibold">Type:</label>
+          <div class="flex gap-2"><input type="radio" id="all" class="w-5" checked="" /><span>Like New and Good</span></div>
+          <div class="flex gap-2"><input type="radio" id="rent" class="w-5" /><span>Good</span></div>
+          <div class="flex gap-2"><input type="radio" id="sale" class="w-5" /><span>Like New</span></div>
+          <div class="flex-wrap items-center">
+            <div class="flex gap-2"><input type="checkbox" id="offer" class="w-5" /><span>Offer</span></div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <label class="font-semibold">Sort:</label
+          ><select id="sort_order" class="border rounded-lg p-3">
+            <option value="createdAt_desc">Latest</option>
+            <option value="createdAt_asc">Oldest</option>
+            <option value="regularPrice_desc">Price high to low</option>
+            <option value="regularPrice_asc">Price low to hight</option>
+          </select>
+        </div>
+        <button class="bg-yellow-300 text-white text-center font-bold p-3 rounded-full uppercase hover:text-black hover:opacity-50">Search</button>
+      </form>
+    </div>
+    <div class="flex-1">
+      <h1 class="text-3xl font-semibold border-b p-3 text-slate-700 mt-5">Stuff results:</h1>
+      <div class="p-7 flex flex-wrap gap-4">
+        <% if (searchResult.length > 0) { %> <% searchResult.forEach((result) => { %>
+        <div class="bg-white shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg w-full sm:w-[330px]">
+          <a href="<%= result.link %>">
+            <img src="<%= result.imageUrl %>?alt=media" alt="<%= result.name %>" class="h-[320px] sm:h-[220px] w-full object-cover hover:scale-105 transition-scale duration-300" />
+            <div class="p-3 flex flex-col gap-2 w-full">
+              <p class="truncate text-lg font-semibold text-slate-700"><%= result.name %></p>
+              <p class="text-sm text-gray-600 line-clamp-2"><%= result.description %></p>
+              <p class="text-slate-500 mt-2 font-semibold">$<%= result.price %></p>
+            </div>
+          </a>
+        </div>
+        <% }); %> <% } else { %>
+        <p class="text-gray-500 text-xl text-center">Stuff not found!!</p>
+        <% } %>
+
+        <!-- <button class="text-black hover:underline p-7 text-center w-full">Show more</button> -->
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  function toggleMode() {
+    const lightModeButton = document.getElementById("lightModeButton");
+    const darkModeButton = document.getElementById("darkModeButton");
+
+    lightModeButton.classList.toggle("hidden");
+    darkModeButton.classList.toggle("hidden");
+
+    document.body.classList.toggle("dark-mode");
+
+    const isDarkMode = document.body.classList.contains("dark-mode");
+    localStorage.setItem("darkMode", isDarkMode);
+  }
+
+  const savedDarkMode = localStorage.getItem("darkMode") === "true";
+  if (savedDarkMode) {
+    toggleMode();
+  }
+</script>
